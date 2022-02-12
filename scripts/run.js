@@ -1,8 +1,20 @@
 const main = async () => {
+    //Get the contract and deploy it
     const nftContractFactory = await hre.ethers.getContractFactory('NFTMinter');
     const nftContract = await nftContractFactory.deploy();
     await nftContract.deployed();
     console.log("Contract deployed to:", nftContract.address);
+  
+    // Call the Minting function
+    let txn = await nftContract.makeDGNFT()
+    // Wait for it to be mined
+    await txn.wait()
+  
+    // Mint another NFT for fun
+    txn = await nftContract.makeDGNFT()
+    // Wait for it to be mined
+    await txn.wait()
+  
   };
   
   const runMain = async () => {
