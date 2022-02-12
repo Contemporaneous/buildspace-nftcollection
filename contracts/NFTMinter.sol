@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.1;
 
 //Add Imports
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -31,5 +31,8 @@ contract NFTMinter is ERC721URIStorage {
 
     // Increment the counter for when the next NFT is minted.
     _tokenIds.increment();
+
+    //Log the NFT to the console.
+    console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
   }
 }
