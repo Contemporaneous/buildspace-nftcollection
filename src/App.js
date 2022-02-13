@@ -1,30 +1,90 @@
 import './styles/App.css';
 import twitterLogo from './assets/twitter-logo.svg';
-import React from "react";
+import React, { useEffect, useState }  from "react";
 
 // Constants
-const TWITTER_HANDLE = '_buildspace';
+const TWITTER_HANDLE = 'chainedgandalf';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = '';
 const TOTAL_MINT_COUNT = 50;
 
 const App = () => {
+
+  //States
+  const [currentAccount, setCurrentAccount] = useState("");
+
+  //functions
+  const checkIfWalletIsConnected = async () => {
+    /*
+    * First make sure we have access to window.ethereum
+    */
+    const { ethereum } = window;
+
+    if (!ethereum) {
+      console.log("Make sure you have metamask!");
+      return;
+    } else {
+      console.log("We have the ethereum object", ethereum);
+    }
+
+    const accounts = await ethereum.request({ method: 'eth_accounts' });
+
+    if (accounts.length !== 0) {
+      const account = accounts[0];
+      console.log("Found an authorized account:", account);
+      setCurrentAccount(account)
+    } else {
+      console.log("No authorized account found")
+    }
+  }
+
+  const connectWallet = async () => {
+    try {
+      const { ethereum } = window;
+
+      if (!ethereum) {
+        alert("Get MetaMask!");
+        return;
+      }
+
+      //request account access
+      const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+
+      //set current account
+      console.log("Connected", accounts[0]);
+      setCurrentAccount(accounts[0]); 
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   // Render Methods
   const renderNotConnectedContainer = () => (
-    <button className="cta-button connect-wallet-button">
+    <button onClick={connectWallet} className="cta-button connect-wallet-button">
       Connect to Wallet
     </button>
   );
+
+  //useEffects
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, [])
 
   return (
     <div className="App">
       <div className="container">
         <div className="header-container">
-          <p className="header gradient-text">My NFT Collection</p>
+          <p className="header gradient-text">Dope Goat</p>
           <p className="sub-text">
-            Each unique. Each beautiful. Discover your NFT today.
+            Each Goat is unique. Each Goat is dope. Discover your DopeGoat today.
           </p>
-          {renderNotConnectedContainer()}
+          {currentAccount === "" ? (
+            renderNotConnectedContainer()
+          ) : (
+            <button onClick={null} className="cta-button connect-wallet-button">
+              Mint DopeGoat
+            </button>
+          )}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
@@ -33,7 +93,7 @@ const App = () => {
             href={TWITTER_LINK}
             target="_blank"
             rel="noreferrer"
-          >{`built on @${TWITTER_HANDLE}`}</a>
+          >{`built by @${TWITTER_HANDLE}`}</a>
         </div>
       </div>
     </div>
