@@ -23,7 +23,9 @@ contract NFTMinter is ERC721URIStorage {
   //Random Lists
   string[] names = ["Alfred", "Bertrand", "Charles", "Dennis", "Eugene", "Friedrich", "George", "Hans", "Ivan", "Julius", "Klaus", "Ludwig", "Manfred", "Nils", "Otto", "Paul"];
   string[] colours = ["crimson", "darkslateblue", "darkgreen", "burlywood", "coral", "midnightblue", "mediumvioletred", "lightblue", "seagreen", "steelblue", "mediumaquamarine", "plum", "sienna", "limegreen", "orchid"];
-
+  
+  //events
+  event NFTMinted(address sender, uint256 tokenId);
 
   // Pass constructor the name of our NFTs token and its symbol.
   constructor() ERC721 ("DopeGoats", "DPGT") {
@@ -87,5 +89,8 @@ contract NFTMinter is ERC721URIStorage {
 
     //Log the NFT to the console.
     console.log("An NFT w/ ID %s has been minted to %s", newItemId, msg.sender);
+
+    //emit
+    emit NFTMinted(msg.sender, newItemId);
   }
 }
