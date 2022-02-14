@@ -49,7 +49,9 @@ contract NFTMinter is ERC721URIStorage {
   }
 
   // A function our user will hit to get their NFT.
-  function makeDGNFT() public {
+  function makeDGNFT() public payable {
+    require(msg.value >= 0.01 ether, "Not enough ETH sent: check price.");
+
      // Get the current tokenId, this starts at 0.
     uint256 newItemId = _tokenIds.current();
 
