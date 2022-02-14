@@ -7,8 +7,7 @@ import NFTMinter from './utils/NFTMinter.json';
 // Constants
 const TWITTER_HANDLE = 'chainedgandalf';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
-const OPENSEA_LINK = '';
-const TOTAL_MINT_COUNT = 50;
+const OPENSEA_LINK = 'https://testnets.opensea.io/collection/dopegoats-v4';
 
 const CONTRACT_ADDRESS = "0xd8A63679cc5B52281b2bc5c1E36b99c9DC7d89EF";
 
@@ -153,7 +152,13 @@ const App = () => {
             <button onClick={askContractToMintNft} className="cta-button connect-wallet-button">
               Mint DopeGoat
             </button>
+            
           )}
+        </div>
+        <div>
+          <button onClick={() =>window.open(OPENSEA_LINK,'_blank','resizable=yes')} className="cta-button connect-wallet-button">
+              View Collection
+          </button>
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
