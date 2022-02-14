@@ -13,22 +13,21 @@ const main = async () => {
     const nftContract = await nftContractFactory.deploy();
     await nftContract.deployed();
     console.log("Contract deployed to:", nftContract.address);
-
-    fs.copyFile(src, dest, (error) => {
-      // incase of any error
-      console.log("Lets Copy")
-      if (error) {
-        console.error(error);
-        return;
-      }
-      
-      console.log("Copied Successfully!");
-    });
 };
   
 const runMain = async () => {
     try {
       await main();
+      fs.copyFile(src, dest, (error) => {
+        // incase of any error
+        console.log("Lets Copy")
+        if (error) {
+          console.error(error);
+          return;
+        }
+        
+        console.log("Copied Successfully!");
+      });
       process.exit(0);
     } catch (error) {
       console.log(error);
@@ -37,3 +36,4 @@ const runMain = async () => {
 };
   
 runMain();
+
