@@ -1,27 +1,39 @@
+const fs = require("fs");
+const path = require('path');
+
+
+// source to copy content
+const src = path.join(__dirname, '..', 'artifacts', 'contracts', 'NFTMinter.sol', 'NFTMinter.json');
+// destination for copied content
+const dest = path.join(__dirname,'..','src','utils','NFTMinter.json');
+
 const main = async () => {
     //Get the contract and deploy it
     const nftContractFactory = await hre.ethers.getContractFactory('NFTMinter');
     const nftContract = await nftContractFactory.deploy();
     await nftContract.deployed();
     console.log("Contract deployed to:", nftContract.address);
+};
   
-    // Call the Minting function 10 times
-    for (let i = 0; i < 10; i++) {
-        let txn = await nftContract.makeDGNFT()
-        // Wait for it to be mined
-        await txn.wait()
-    }
-  
-  };
-  
-  const runMain = async () => {
+const runMain = async () => {
     try {
       await main();
+      fs.copyFile(src, dest, (error) => {
+        // incase of any error
+        console.log("Lets Copy")
+        if (error) {
+          console.error(error);
+          return;
+        }
+        
+        console.log("Copied Successfully!");
+      });
       process.exit(0);
     } catch (error) {
       console.log(error);
       process.exit(1);
     }
-  };
+};
   
-  runMain();
+runMain();
+
