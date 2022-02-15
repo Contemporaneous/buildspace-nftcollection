@@ -4,13 +4,14 @@ pragma solidity ^0.8.1;
 
 //Add Imports
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 import "hardhat/console.sol";
 
 import { Base64 } from "./libraries/Base64.sol";
 
-contract NFTMinter is ERC721URIStorage {
+contract NFTMinter is ERC721URIStorage, Ownable {
 
   // Counter contract to help keep NFTs unique
   using Counters for Counters.Counter;
@@ -30,6 +31,7 @@ contract NFTMinter is ERC721URIStorage {
   // Pass constructor the name of our NFTs token and its symbol.
   constructor() ERC721 ("DopeGoats", "DPGT") {
     console.log("This is my Dope Goat NFT contract. Woah!");
+
   }
 
   function randomName(uint256 tokenId) public view returns (string memory) {
@@ -49,7 +51,9 @@ contract NFTMinter is ERC721URIStorage {
   }
 
   // A function our user will hit to get their NFT.
-  function makeDGNFT() public {
+  function makeDGNFT() public payable {
+    require(msg.value >= 0.01 ether, "Not enough ETH sent: check price.");
+
      // Get the current tokenId, this starts at 0.
     uint256 newItemId = _tokenIds.current();
 
@@ -92,5 +96,9 @@ contract NFTMinter is ERC721URIStorage {
 
     //emit
     emit NFTMinted(msg.sender, newItemId);
+  }
+
+  function withdrawFunds(address payable _to) public onlyOwner {
+    _to.transfer(address(this).balance);
   }
 }
