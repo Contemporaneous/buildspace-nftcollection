@@ -9,7 +9,7 @@ const TWITTER_HANDLE = 'chainedgandalf';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = 'https://testnets.opensea.io/collection/dopegoats-v4';
 
-const CONTRACT_ADDRESS = "0x332535C6DC889a4Eb075b3f037C69a7477D57f19";
+const CONTRACT_ADDRESS = "0x23307BC80221B1FB35485B9dab68BbC9A0fa7868";
 
 const App = () => {
 
@@ -33,10 +33,10 @@ const App = () => {
     let chainId = await ethereum.request({ method: 'eth_chainId' });
     console.log("Connected to chain " + chainId);
 
-    // String, hex code of the chainId of the Rinkebey test network
-    const rinkebyChainId = "0x4"; 
-    if (chainId !== rinkebyChainId) {
-      alert("You are not connected to the Rinkeby Test Network!");
+    // String, hex code of the chainId of the Mumbai test network
+    const mumbaiChainID = "0x13881";
+    if (chainId !== mumbaiChainID) {
+      alert("You are not connected to the Mumbai Test Network!");
     }
 
     const accounts = await ethereum.request({ method: 'eth_accounts' });
