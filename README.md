@@ -15,10 +15,10 @@ npm install
 
 Deploy Contract (requires update of `src\App.js` with new contract address)
 ```bash
-npx hardhat run scripts\run.js --network rinkeby
+npx hardhat run scripts\run.js --network NETWORK
 ```
 
-Verify Contract
+Verify Contract (not on matic networks)
 ```bash
 npx hardhat verify YOUR_CONTRACT_ADDRESS --network rinkeby 
 ```
