@@ -9,7 +9,7 @@ const TWITTER_HANDLE = 'chainedgandalf';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const OPENSEA_LINK = 'https://testnets.opensea.io/collection/dopegoats-v4';
 
-const CONTRACT_ADDRESS = "0xd8A63679cc5B52281b2bc5c1E36b99c9DC7d89EF";
+const CONTRACT_ADDRESS = "0x332535C6DC889a4Eb075b3f037C69a7477D57f19";
 
 const App = () => {
 
