@@ -10,7 +10,7 @@ module.exports = {
   networks: {
     hardhat: {
     },
-    maticdev: {
+    matic: {
       url: "https://rpc-mumbai.maticvigil.com",
       accounts: [process.env.PRIVATE_KEY]
     },
