@@ -20,7 +20,7 @@ npx hardhat run scripts\run.js --network NETWORK
 
 Verify Contract (not on matic networks)
 ```bash
-npx hardhat verify YOUR_CONTRACT_ADDRESS --network rinkeby 
+npx hardhat verify YOUR_CONTRACT_ADDRESS --network NETWORK 
 ```
 
 ### App
